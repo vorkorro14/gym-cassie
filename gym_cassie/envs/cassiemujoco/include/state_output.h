@@ -14,52 +14,26 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef CASSIE_IN_T_H
-#define CASSIE_IN_T_H
+#ifndef STATE_OUTPUT_H
+#define STATE_OUTPUT_H
 
-#define CASSIE_IN_T_PACKED_LEN 91
+#include "cassie_out_t.h"
+#include "state_out_t.h"
 
-#include <stdbool.h>
-
-typedef struct {
-  unsigned short controlWord;
-  double torque;
-} elmo_in_t;
-
-typedef struct {
-  elmo_in_t hipRollDrive;
-  elmo_in_t hipYawDrive;
-  elmo_in_t hipPitchDrive;
-  elmo_in_t kneeDrive;
-  elmo_in_t footDrive;
-} cassie_leg_in_t;
-
-typedef struct {
-  short channel[14];
-} radio_in_t;
-
-typedef struct {
-  radio_in_t radio;
-  bool sto;
-  bool piezoState;
-  unsigned char piezoTone;
-} cassie_pelvis_in_t;
-
-typedef struct {
-  cassie_pelvis_in_t pelvis;
-  cassie_leg_in_t leftLeg;
-  cassie_leg_in_t rightLeg;
-} cassie_in_t;
-
+typedef struct StateOutput state_output_t;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-void pack_cassie_in_t(const cassie_in_t *bus, unsigned char *bytes);
-void unpack_cassie_in_t(const unsigned char *bytes, cassie_in_t *bus);
+state_output_t* state_output_alloc(void);
+void state_output_copy(state_output_t *dst, const state_output_t *src);
+void state_output_free(state_output_t *sys);
+void state_output_setup(state_output_t *sys);
+void state_output_step(state_output_t *sys, const cassie_out_t *in1,
+  state_out_t *out1);
 
 #ifdef __cplusplus
 }
 #endif
-#endif // CASSIE_IN_T_H
+#endif // STATE_OUTPUT_H

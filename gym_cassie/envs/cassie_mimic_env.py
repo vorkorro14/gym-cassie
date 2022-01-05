@@ -1,4 +1,4 @@
-from .cassiemujoco import pd_in_t, CassieSim, CassieVis
+from .cassiemujoco.build.cassiemujoco import pd_in_t, CassieSim, CassieVis
 
 from .trajectory import CassieTrajectory
 
@@ -329,6 +329,6 @@ class CassieMimicEnv(gym.Env):
 
     def render(self):
         if self.vis is None:
-            self.vis = CassieVis()
+            self.vis = CassieVis(self.sim)
 
         self.vis.draw(self.sim)

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018 Agility Robotics
+ * Copyright (c) 2018 Dynamic Robotics Laboratory
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -14,26 +14,32 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef STATEOUTPUT_H
-#define STATEOUTPUT_H
+#include "cassiemujoco.h"
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-#include "cassie_out_t.h"
-#include "state_out_t.h"
+int main(void)
+{
+    const char* modelfile = "../model/cassie.xml";
+    cassie_sim_t *c = cassie_sim_init(modelfile, false);
+    cassie_vis_t *v = cassie_vis_init(c, modelfile, false);
+  
+    state_out_t y;
+    pd_in_t u = {0};
 
-typedef struct StateOutput StateOutput;
+    bool draw_state = cassie_vis_draw(v, c);
+    while (draw_state) {
+        if (!cassie_vis_paused(v)) {   
+            cassie_sim_step_pd(c, &y, &u);
+        }
+        draw_state = cassie_vis_draw(v, c);
+    }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+    cassie_sim_free(c);
+    cassie_vis_free(v);
+    cassie_cleanup();
 
-StateOutput* StateOutput_alloc(void);
-void StateOutput_copy(StateOutput *dst, const StateOutput *src);
-void StateOutput_free(StateOutput *sys);
-void StateOutput_setup(StateOutput *sys);
-void StateOutput_step(StateOutput *sys, const cassie_out_t *in1,
-  state_out_t *out1);
-
-#ifdef __cplusplus
+    return 0;
 }
-#endif
-#endif // STATEOUTPUT_H

@@ -1,4 +1,5 @@
 from .envs import CassieEnv
+from .envs import CassieMimicEnv
 from gym.envs.registration import register
 
 register(

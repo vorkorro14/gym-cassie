@@ -14,27 +14,27 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef CASSIECORESIM_H
-#define CASSIECORESIM_H
+#ifndef CASSIE_CORE_SIM_H
+#define CASSIE_CORE_SIM_H
 
 #include "cassie_user_in_t.h"
 #include "cassie_out_t.h"
 #include "cassie_in_t.h"
 
-typedef struct CassieCoreSim CassieCoreSim;
+typedef struct CassieCoreSim cassie_core_sim_t;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-CassieCoreSim* CassieCoreSim_alloc(void);
-void CassieCoreSim_copy(CassieCoreSim *dst, const CassieCoreSim *src);
-void CassieCoreSim_free(CassieCoreSim *sys);
-void CassieCoreSim_setup(CassieCoreSim *sys);
-void CassieCoreSim_step(CassieCoreSim *sys, const cassie_user_in_t *in1,
+cassie_core_sim_t* cassie_core_sim_alloc(void);
+void cassie_core_sim_copy(cassie_core_sim_t *dst, const cassie_core_sim_t *src);
+void cassie_core_sim_free(cassie_core_sim_t *sys);
+void cassie_core_sim_setup(cassie_core_sim_t *sys);
+void cassie_core_sim_step(cassie_core_sim_t *sys, const cassie_user_in_t *in1,
   const cassie_out_t *in2, cassie_in_t *out1);
 
 #ifdef __cplusplus
 }
 #endif
-#endif // CASSIECORESIM_H
+#endif // CASSIE_CORE_SIM_H

@@ -14,27 +14,27 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#ifndef PDINPUT_H
-#define PDINPUT_H
+#ifndef PD_INPUT_H
+#define PD_INPUT_H
 
 #include "pd_in_t.h"
 #include "cassie_out_t.h"
 #include "cassie_user_in_t.h"
 
-typedef struct PdInput PdInput;
+typedef struct PdInput pd_input_t;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-PdInput* PdInput_alloc(void);
-void PdInput_copy(PdInput *dst, const PdInput *src);
-void PdInput_free(PdInput *sys);
-void PdInput_setup(PdInput *sys);
-void PdInput_step(PdInput *sys, const pd_in_t *in1, const cassie_out_t
+pd_input_t* pd_input_alloc(void);
+void pd_input_copy(pd_input_t *dst, const pd_input_t *src);
+void pd_input_free(pd_input_t *sys);
+void pd_input_setup(pd_input_t *sys);
+void pd_input_step(pd_input_t *sys, const pd_in_t *in1, const cassie_out_t
   *in2, cassie_user_in_t *out1);
 
 #ifdef __cplusplus
 }
 #endif
-#endif // PDINPUT_H
+#endif // PD_INPUT_H
